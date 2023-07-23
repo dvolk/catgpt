@@ -9,6 +9,7 @@ import markdown2
 
 app = Flask(__name__)
 
+# pylint: disable=unspecified-encoding
 conversations = json.loads(pathlib.Path("conversations.json").read_text())
 
 
