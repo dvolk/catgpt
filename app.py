@@ -1,3 +1,5 @@
+"""CatGPT renders a single static page with all your ChatGPT conversations."""
+
 import json
 import pathlib
 import html
@@ -12,6 +14,7 @@ conversations = json.loads(pathlib.Path("conversations.json").read_text())
 
 @app.route("/")
 def index():
+    """Render CatGPT main page."""
     return render_template(
         "index.jinja2",
         conversations=conversations,
@@ -21,6 +24,7 @@ def index():
 
 
 def main():
+    """Run flask app."""
     app.run(port=8085, debug=True)
 
 
