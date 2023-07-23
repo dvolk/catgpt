@@ -35,18 +35,18 @@
         <h2>Chats</h2>
       </div>
       {% for c in conversations %}
-      <ul class="w3-ul">
-        <li class="truncate"><a href="#{{ loop.index }}">{{ c.title }}</a></li>
-      </ul>
+        <ul class="w3-ul">
+          <li class="truncate"><a href="#{{ loop.index }}">{{ c.title }}</a></li>
+        </ul>
       {% endfor %}
     </div>
 
     <div class="w3-threequarter">
       {% for c in conversations %}
         <div class="">
-        <div id="{{ loop.index }}" class="w3-amber w3-container w3-center">
-          <h2>{{ c.title }}</h2>
-        </div>
+          <div id="{{ loop.index }}" class="w3-amber w3-container w3-center">
+            <h2>{{ c.title }}</h2>
+          </div>
           {% for key, message in (c.mapping.items()|list)[1:] %}
             {% if "parts" in message.message.content %}
               {% if message.message %}
@@ -57,14 +57,8 @@
                 {% endif %}
                 <div class="w3-container {{ colclass }}">
                   <p>
-                    {% set msg = message.message.content.parts[0] %}
-                    {% if not ('<' in msg or '>' in msg) %}
-                    {% if message.message.author.role == 'assistant' %}
-                      {{ markdown2.markdown(msg, extras=["fenced-code-blocks"])|safe }}
-                    {% else %}
-                      {{ msg }}
-                    {% endif %}
-                    {% endif %}
+                    {% set msg = message.message.content.parts[0].replace('<', '&lt;') %}
+                    {{ markdown2.markdown(msg, extras=["fenced-code-blocks"])|safe }}
                   </p>
                 </div>
               {% endif %}
