@@ -1,0 +1,79 @@
+<head>
+  <title>{{ title }}</title>
+  <style>
+    body {
+    font-family: Roboto Condensed, sans-serif !important;
+    background-color: #FAEBD7;
+    colfor: black;
+    }
+    h1, h2 {
+    font-family: Ubuntu, sans-serif !important;
+    font-weight: 600 !important;
+    }
+    code {
+    font-family: Ubuntu Mono, monospace !important;
+    font-size: 20px;
+    font-weight: 600;
+    white-space: pre;
+    }
+    .truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+  </style>
+
+  <link rel="stylesheet" href="static/w3.css">
+</head>
+
+<div class="">
+  <div class="w3-container w3-padding w3-center">
+    <h1>🐈CatGPT</h1>
+  </div>
+  <div class="w3-row w3-container">
+    <div class="w3-quarter w3-white" style="border-right: 10px solid #FAEBD7;">
+      <div class="w3-center">
+        <h2>Chats</h2>
+      </div>
+      {% for c in conversations %}
+      <ul class="w3-ul">
+        <li class="truncate"><a href="#{{ loop.index }}">{{ c.title }}</a></li>
+      </ul>
+      {% endfor %}
+    </div>
+
+    <div class="w3-threequarter">
+      {% for c in conversations %}
+        <div class="">
+        <div id="{{ loop.index }}" class="w3-amber w3-container w3-center">
+          <h2>{{ c.title }}</h2>
+        </div>
+          {% for key, message in (c.mapping.items()|list)[1:] %}
+            {% if "parts" in message.message.content %}
+              {% if message.message %}
+                {% if message.message.author.role == 'assistant' %}
+                  {% set colclass = "w3-white" %}
+                {% else %}
+                  {% set colclass= "w3-brown" %}
+                {% endif %}
+                <div class="w3-container {{ colclass }}">
+                  <p>
+                    {% set msg = message.message.content.parts[0] %}
+                    {% if not ('<' in msg or '>' in msg) %}
+                    {% if message.message.author.role == 'assistant' %}
+                      {{ markdown2.markdown(msg, extras=["fenced-code-blocks"])|safe }}
+                    {% else %}
+                      {{ msg }}
+                    {% endif %}
+                    {% endif %}
+                  </p>
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+        <br/>
+      {% endfor %}
+    </div>
+  </div>
+</div>
