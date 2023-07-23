@@ -58,7 +58,7 @@
                 <div class="w3-container {{ colclass }}">
                   <p>
                     {% set msg = message.message.content.parts[0].replace('<', '&lt;') %}
-                    {{ markdown2.markdown(msg, extras=["fenced-code-blocks"])|safe }}
+                    {{ markdown2.markdown(msg, extras=["fenced-code-blocks", "code-friendly", "tables"])|safe }}
                   </p>
                 </div>
               {% endif %}
