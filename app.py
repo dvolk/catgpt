@@ -26,7 +26,7 @@ def index():
 
 def main():
     """Run flask app."""
-    app.run(port=8085, debug=True)
+    app.run(port=8085)
 
 
 if __name__ == "__main__":
