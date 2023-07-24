@@ -1,8 +1,12 @@
 # CatGPT
 
-CatGPT lets you browse/search your ChatGPT history on one page.
+CatGPT puts all your ChatGPT conversations on a single static page for easy browsing and searching.
 
 <img src="https://i.postimg.cc/3RZVD3bq/localhost-8085-my-ipad-4.png">
+
+## Motivation
+
+- The chat.openai.com interface is very sluggish and has no search function.
 
 ## Installation
 
@@ -17,9 +21,10 @@ pip3 install -r requirements.txt
 
 ## Get ChatGPT archive
 
-Download your ChatGPT archive and put `conversations.json` into the `catgpt` directory.
+- Request ChatGPT data export (`chat.openai.com` -> `Settings & Beta` -> `Data controls` -> `Export data`)
+- Extract your data export and put `conversations.json` into the `catgpt` directory.
 
-## Running
+## Run
 
 ```
 python3 app.py
